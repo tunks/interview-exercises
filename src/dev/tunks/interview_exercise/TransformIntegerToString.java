@@ -25,7 +25,7 @@ public class TransformIntegerToString {
 
 	public static String figuresToWords(int num) {
 		Map<Integer, String> intUnits = getWordUnit();
-		String result = getWord(intUnits, num);
+		String result =  intUnits.get(num);
 		StringBuilder builder = new StringBuilder();
 
 		if (result != null) {
@@ -65,18 +65,18 @@ public class TransformIntegerToString {
 
 			if (d != 0) {
 				if (intUnits.containsKey(unit * d)) {
-					result = (d == UNIT_ONE && unit >= UNIT_HUNDRED) ? getWord(intUnits, d) : null;
+					result = (d == UNIT_ONE && unit >= UNIT_HUNDRED) ? intUnits.get(d) : null;
 					appendToBuilder(builder, result);
-					result = getWord(intUnits, unit * d);
+					result =  intUnits.get(unit * d);
 					appendToBuilder(builder, result);
 				} else {
-					result = (intUnits.containsKey(d)) ? getWord(intUnits, d) : figuresToWords(d);
+					result = (intUnits.containsKey(d)) ? intUnits.get(d) : figuresToWords(d);
 					appendToBuilder(builder, result);
-					result = getWord(intUnits, unit);
+					result = intUnits.get(unit);
 					appendToBuilder(builder, result);
 				}
 			} else if (r != 0) {
-				result = getWord(intUnits, r);
+				result = intUnits.get(r);
 				appendToBuilder(builder, result);
 			}
 
@@ -86,14 +86,6 @@ public class TransformIntegerToString {
 		return builder.toString();
 	}
 
-	private static String getWord(Map<Integer, String> intUnits, int n) {
-		String result = null;
-		result = intUnits.get(n);
-		if (result == null) {
-
-		}
-		return result;
-	}
 
 	private static void appendToBuilder(StringBuilder builder, String... result) {
 		if (result != null) {
